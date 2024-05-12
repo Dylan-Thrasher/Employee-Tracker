@@ -1,10 +1,8 @@
 const { prompt } = require("inquirer");
 const logo = require("asciiart-logo");
 const db = require("./db");
-const userChoices = ['Show All Employees', 'Show All Roles', 'Show All Departments', 'Show Budget', 'Show Employee Department', 'Show Employee Manager',
-  'Add Employee', 'Add Role', 'Add Department',
-  'Update Role for Employee', 'Update Manager for Employee',
-  'Remove Employee', 'Remove Role', 'Remove Department', 'Quit']
+const userChoices = ['View All Employees', 'View All Roles', 'View All Departments', 'View Budget',
+'Add Employee', 'Add Role', 'Add Department', 'Quit']
 
 init();
 
@@ -19,7 +17,7 @@ function init() {
 
 function loadMainPrompts() {
   prompt([
-    // TODO- Create first question user will see- "What would you like to do?"
+    // Created first question user will see- "What would you like to do?"
     {
       type: 'list',
       name: 'tracker',
@@ -27,74 +25,75 @@ function loadMainPrompts() {
       choices: trackerChoices,
     }
   ]).then((res) => {
-    // TODO- Create a variable to store the user's choice
+    // Created a variable to store the user's choice
     let trackerChoice;
+     //  Created a switch statement to call the appropriate response depending on what the user chose
     switch (res.trackerChoices) {
-      case value:
-
-        break;
-
-
-      // TODO- Create a switch statement to call the appropriate function depending on what the user chose
-      case value:
-
-        break;
-
-      // TODO- Create a function to View all employees
-      case value:
-
+      // Created a case to View all employees
+      case 'View All Employees':
+        db.findAllEmployees().then((employees) => {
+          console.table(employees.rows);
+        }).then(() => {
+          loadMainPrompts();
+        })
         break;
 
       // BONUS- Create a function to View all employees that belong to a department
-      case value:
+      // case value:
 
-        break;
+      //   break;
       // BONUS- Create a function to View all employees that report to a specific manager
-      case value:
+      // case value:
 
-        break;
+      //   break;
       // BONUS- Create a function to Delete an employee
-      case value:
+      // case value:
 
-        break;
+      //   break;
       // TODO- Create a function to Update an employee's role
-      case value:
+      case  'Update Role for Employee':
 
         break;
       // BONUS- Create a function to Update an employee's manager
-      case value:
+      // case value:
 
-        break;
+      //   break;
       // TODO- Create a function to View all roles
-      case value:
+      case  'View All Roles':
 
         break;
       // TODO- Create a function to Add a role
-      case value:
+      case 'Add Role':
 
         break;
       // BONUS- Create a function to Delete a role
-      case value:
+      // case value:
 
-        break;
+      //   break;
       // TODO- Create a function to View all deparments
-      case value:
+      case 'View All Departments':
 
         break;
       // TODO- Create a function to Add a department
-      case value:
+      case 'Add Department':
 
         break;
       // BONUS- Create a function to Delete a department
-      case value:
+      // case value:
 
-        break;
+      //   break;
       // BONUS- Create a function to View all departments and show their total utilized department budget
-      case value:
+      case 'View Budget':
 
         break;
       // TODO- Create a function to Add an employee
+      case 'Add Employee':
 
+        break;
+
+      case 'Quit':
+
+        break;
     }
   });
 }

@@ -67,7 +67,11 @@ class DB {
 }
 
   // BONUS- Create a query to Find all departments, join with employees and roles and sum up utilized department budget
-
+  viewBudget() {
+    return this.query(
+      "SELECT department.department_id, department.department_name, SUM(role.salary) AS utilized_budget FROM employees JOIN role ON employees.role_id = role.id JOIN department on role.department_id = department.department_id GROUP BY department.department_id, department.department_name;"
+    )
+  }
   // Created a query to Create a new department
   addDepartment(department_name) {
     return this.query(
@@ -80,6 +84,7 @@ class DB {
   // BONUS- Create a query to Find all employees in a given department, join with roles to display role titles
 
   // BONUS- Create a query to Find all employees by manager, join with departments and roles to display titles and department names
+
 }
 
 module.exports = new DB();
