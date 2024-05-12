@@ -2,7 +2,7 @@ const { prompt } = require("inquirer");
 const logo = require("asciiart-logo");
 const db = require("./db");
 const userChoices = ['View All Employees', 'View All Roles', 'View All Departments', 'View Budget',
-'Add Employee', 'Add Role', 'Add Department', 'Quit']
+  'Add Employee', 'Update Role for Employee', 'Add Role', 'Add Department', 'Quit']
 
 init();
 
@@ -27,7 +27,7 @@ function loadMainPrompts() {
   ]).then((res) => {
     // Created a variable to store the user's choice
     let trackerChoice;
-     //  Created a switch statement to call the appropriate response depending on what the user chose
+    //  Created a switch statement to call the appropriate response depending on what the user chose
     switch (res.trackerChoices) {
       // Created a case to View all employees
       case 'View All Employees':
@@ -51,15 +51,47 @@ function loadMainPrompts() {
 
       //   break;
       // TODO- Create a function to Update an employee's role
-      case  'Update Role for Employee':
-
-        break;
+      case 'Update Role for Employee':
+        db.findAllEmployees().then(({ rows }) => {
+          const employees = rows.map(({ id, first_name, last_name }) => ({
+            name: `${first_name} ${last_name}`,
+            value: id
+          }))
+          db.findAllRoles().then(({ rows }) => {
+            const roles = rows.map(({ id, title }) => ({
+              name: `${title}`,
+              value: id
+            }))
+            prompt([
+              {
+                type: 'list',
+                name: 'update',
+                message: 'Which employee do you want to update the role for?',
+                choices: employees,
+              },
+              {
+                type: 'list',
+                name: 'role',
+                message: 'What role would you like to update them to?',
+                choices: roles,
+              },
+            ])
+              .then((res) => {
+                let { update, role } = res;
+                db.updateEmployeeRole(update, role)
+                  .then(() => {
+                    loadMainPrompts();
+                  })
+              })
+          })
+        })
+          break;
       // BONUS- Create a function to Update an employee's manager
       // case value:
 
       //   break;
       // TODO- Create a function to View all roles
-      case  'View All Roles':
+      case 'View All Roles':
 
         break;
       // TODO- Create a function to Add a role
