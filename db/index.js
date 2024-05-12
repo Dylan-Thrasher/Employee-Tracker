@@ -13,32 +13,67 @@ class DB {
     }
   }
 
-  // TODO- Create a query to Find all employees, join with roles and departments to display their roles, salaries, departments, and managers
+  // Created a query to Find all employees, join with roles and departments to display their roles, salaries, departments, and managers
   findAllEmployees() {
-    return this.query();
+    return this.query(
+        "SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salaries, department.name, manager.id AS departments"
+    );
   }
 
-  // TODO- Create a query to Find all employees except the given employee id
+  // Created a query to Find all employees except the given employee id
+  findAllEmployeesWithoutId() {
+    return this.query(
+        "SELECT FROM employees WHERE id IS NULL OR id =''"
+    )
+  }
 
-  // TODO- Create a query to Create a new employee
-
+  // Created a query to Create a new employee
+    addEmployee(first_name, last_name, role_id, manager_id) {
+        return this.query(
+            "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4);",[first_name, last_name, role_id, manager_id]
+        )
+    }
+ 
   // BONUS- Create a query to Remove an employee with the given id
 
-  // TODO- Create a query to Update the given employee's role
+  // Created a query to Update the given employee's role
+    updateEmployeeRole(update, role) {
+        return this.query(
+            "UPDATE employees SET role_id = $2 WHERE id = $1;" [update, role]
+        )
+    }
 
   // BONUS- Create a query to Update the given employee's manager
 
-  // TODO- Create a query to Find all roles, join with departments to display the department name
+  // Created a query to Find all roles, join with departments to display the department name
+  findAllRoles(department_id) {
+    return "SELECT title, department_id FROM role JOIN department ON role.department_id = department.department_id WHERE department.department_id = $1"
+  }
 
-  // TODO- Create a query to Create a new role
+  // Created a query to Create a new role
+  addRole(role, salary, department_id) {
+    return this.query(
+      "INSERT INTO employees (title, salary, department_id) VALUES ($1, $2, $3);",[title, salary, department_id]
+    )
+  }
 
   // BONUS- Create a query to Remove a role from the db
 
-  // TODO- Create a query to Find all departments
+  // Created a query to Find all departments
+  displayAllDepartments() {
+    return this.query(
+        "SELECT * FROM department;"
+    )
+}
 
   // BONUS- Create a query to Find all departments, join with employees and roles and sum up utilized department budget
 
-  // TODO- Create a query to Create a new department
+  // Created a query to Create a new department
+  addDepartment(department_name) {
+    return this.query(
+      "INSERT INTO department (department_name) VALUES ($1);",[department_name]
+    )
+  }
 
   // BONUS- Create a query to Remove a department
 
