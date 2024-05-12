@@ -60,7 +60,7 @@ class DB {
   // BONUS- Create a query to Remove a role from the db
 
   // Created a query to Find all departments
-  displayAllDepartments() {
+  findAllDepartments() {
     return this.query(
         "SELECT * FROM department;"
     )
