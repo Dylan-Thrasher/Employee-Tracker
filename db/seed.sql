@@ -28,7 +28,7 @@ VALUES
         ('Public Works Director', 10000, 7),
         ('Health Department Director', 100000, 8),
         ('Director of Animal Control', 100000, 9),
-        ('Animal Controll Officer', 10000, 9),
+        ('Animal Controle Officer', 10000, 9),
         ('City Planner', 80000, 9),
         ('Park Ranger', 40000, 9),
         ('Administrator', 80000, 1),
@@ -37,7 +37,7 @@ VALUES
         ('Assistant City Manager', 110000, 9),
         ('Permits Security', 80000, 1),
         ('Office Manager', 80000, 9),
-        ('City Attorney Assitant', 80000, 9),
+        ('City Attorney Assistant', 80000, 9),
         ('Councilman', 80000, 9),
         ('Court Stenographer', 80000, 9),
         ('Head of DMV', 90000, 9),
@@ -45,7 +45,7 @@ VALUES
         ('Sanitation Worker', 80000, 4),
         ('Maintenance Worker', 80000, 7);
 
-INSERT INTO employee
+INSERT INTO employees
     (first_name, last_name, role_id, manager_id)
 VALUES
     ('Chris', 'Traeger', 18, 1),

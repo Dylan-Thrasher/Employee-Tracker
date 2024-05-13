@@ -10,13 +10,13 @@ CREATE DATABASE employees;
 -- wrote an SQL command to Create the department table
 CREATE TABLE department (
     department_id SERIAL PRIMARY KEY,
-    department_name VARCHAR(30) UNIQUE NOT NULL
+    department_name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- wrote an SQL command to Create the role table
 CREATE TABLE role (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(30) UNIQUE NOT NULL,
+    title VARCHAR(50) UNIQUE NOT NULL,
     salary DECIMAL NOT NULL,
     department_id INTEGER NOT NULL,
     -- below links data from department table into role table
@@ -26,8 +26,8 @@ CREATE TABLE role (
 -- wrote an SQL command to Create the employee table
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     role_id INTEGER NOT NULL,
     CONSTRAINT FK_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
     manager_id INTEGER,

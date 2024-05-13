@@ -16,7 +16,7 @@ class DB {
   // Created a query to Find all employees, join with roles and departments to display their roles, salaries, departments, and managers
   findAllEmployees() {
     return this.query(
-        "SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salaries, department.name, manager.id AS departments"
+        "SELECT employees.id, employees.first_name, employees.last_name, role.title, role.salary, department.department_name AS departments FROM employees JOIN role ON employees.role_id = role.id JOIN department ON role.department_id = department.department_id"
     );
   }
 
@@ -39,7 +39,7 @@ class DB {
   // Created a query to Update the given employee's role
     updateEmployeeRole(update, role) {
         return this.query(
-            "UPDATE employees SET role_id = $2 WHERE id = $1;" [update, role]
+            "UPDATE employees SET role_id = $2 WHERE id = $1;", [update, role]
         )
     }
 
@@ -47,13 +47,15 @@ class DB {
 
   // Created a query to Find all roles, join with departments to display the department name
   findAllRoles(department_id) {
-    return "SELECT title, department_id FROM role JOIN department ON role.department_id = department.department_id WHERE department.department_id = $1"
-  }
+    return this.query(
+      "SELECT * FROM role JOIN department ON role.department_id = department.department_id"
+  )
+}
 
   // Created a query to Create a new role
-  addRole(role, salary, department_id) {
+  addRole(title, salary, department_id) {
     return this.query(
-      "INSERT INTO employees (title, salary, department_id) VALUES ($1, $2, $3);",[title, salary, department_id]
+      "INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3);",[title, salary, department_id]
     )
   }
 

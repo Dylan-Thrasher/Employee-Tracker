@@ -1,7 +1,7 @@
 const { prompt } = require("inquirer");
 const logo = require("asciiart-logo");
 const db = require("./db");
-const userChoices = ['View All Employees', 'View All Roles', 'View All Departments', 'View Budget',
+const trackerChoices = ['View All Employees', 'View All Roles', 'View All Departments', 'View Budget',
   'Add Employee', 'Update Role for Employee', 'Add Role', 'Add Department', 'Quit']
 
 init();
@@ -28,7 +28,7 @@ function loadMainPrompts() {
     // Created a variable to store the user's choice
     let trackerChoice;
     //  Created a switch statement to call the appropriate response depending on what the user chose
-    switch (res.trackerChoices) {
+    switch (res.tracker) {
       // Created a case to View all employees
       case 'View All Employees':
         db.findAllEmployees().then((employees) => {
@@ -159,12 +159,6 @@ function loadMainPrompts() {
               type: 'input',
               name: 'department',
               message: 'Which department would you like to add?',
-            },
-            {
-              type: 'list',
-              name: 'department_id',
-              message: 'What department will this role fall under?',
-              choices: departments,
             },
           ])
             .then((res) => {
